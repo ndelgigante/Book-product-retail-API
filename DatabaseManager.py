@@ -26,7 +26,7 @@ class DatabaseManager:
     def insert(self,table_name, values):
         entry =" "
         for x in values:
-            entry += ','+x
+            entry += ','+ str(x)
         self.cur.execute(f'INSERT INTO {table_name} VALUES({values});')
         self.conn.commit()
     
