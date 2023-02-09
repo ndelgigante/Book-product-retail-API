@@ -27,6 +27,8 @@ cur.execute("""CREATE TABLE IF NOT EXISTS book(
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     book_name VARCHAR(230) NOT NULL,
     book_description VARCHAR(230) NOT NULL,
+    book_author VARCHAR(230),
+    book_genre VARCHAR(30),
     book_Quantity INT,
     book_MSRP FLOAT)"""
 )
@@ -44,25 +46,20 @@ class products:
     # df = pd.DataFrame(book2)
     #print(df)
 
-    def add_book(book1):
+    def add_book(self, book1):
+        dm.insert("book", book1)
+        self.bookdf = dm.get_df("book")
        
-
-       dm.insert("book", book1)
-
-       pass
         
 
     def remove_Booksid(self, bookid):
         dm.delete("book", f"book_id={bookid}")
         self.bookdf = dm.get_df("book")
 
-    def search_Books(self, author):
-        
-        # cur.execute(f'SELECT * FROM book WHERE book_name={bookname}')
-        # print("book")
+    def search_BooksAuthor(self, author):
+        Auth = self.bookdf.loc[(self.bookdf['book_author'] == author)]
+        return Auth
+
 
     #test = input("please enter a book iD to remove a book")
     #remove_Booksid(test)
-
-    test = input("please enter a book name you want to search")
-    search_Books(test)
