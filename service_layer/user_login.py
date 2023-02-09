@@ -1,7 +1,8 @@
 import DatabaseManager
 def login(username, password):
     #check if username is in the dataframe
-    df = DatabaseManager.get_df("users")
+    dm = DatabaseManager()
+    df = dm.get_df("users")
     if username in df["username"].values:
         #get the index of the username
         index = df["username"].values.tolist().index(username)
