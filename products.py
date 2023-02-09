@@ -1,14 +1,7 @@
 import pandas as pd
 from DatabaseManager import DatabaseManager 
 import mysql.connector
-
-class Books:
-    def __init__(self, bookid, bookname, bookdesc, quantity, msrp):
-        self.bookid = bookid
-        self.bookname = bookname
-        self.bookdesc = bookdesc
-        self.quantity = quantity
-        self.msrp = msrp
+from Models.products import Product
 
 dm = DatabaseManager()
 
