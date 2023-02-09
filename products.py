@@ -1,5 +1,5 @@
 import pandas as pd
-import DatabaseManager 
+from DatabaseManager import DatabaseManager 
 import mysql.connector
 
 class Books:
@@ -10,14 +10,17 @@ class Books:
         self.quantity = quantity
         self.msrp = msrp
 
+dm = DatabaseManager()
 
-book = [{
+book2 = [{
     "Book Id": 0,
     "Book Name": "To Kill a Mockingbird",
     "Book Description": "The novel examines racism in the Americcan south trhough the innocent wide eyes of a clever young girl.",
     "Book Quantity": 50,
     "Book MSRP": 34.99
     }]
+
+
 
 conn = mysql.connector.connect(
     host="localhost",
@@ -36,19 +39,31 @@ cur.execute("""CREATE TABLE IF NOT EXISTS book(
 )
 
 
+class products:
+    def __init__(self):
+        self.bookdf = dm.get_df("book")
 
-df = pd.DataFrame(book)
-print(df)
+    #book1 = [0, "'To kill Moackingbird'", "'something'", 50, 34.99]
+    #dm.insert("book", book1)
 
-def add_Books():
-    DatabaseManager.insert()
-    
+    #cur.execute("""SELECT * FROM book """)
 
-def remove_Books():
-    DatabaseManager.delete()
-    pass
+    # df = pd.DataFrame(book2)
+    #print(df)
 
-def search_Books(self, table_name, bookname):
-    self.cur.execute(f'SELECT * FROM {table_name} WHERE {bookname};')
-    self.conn.commit()
-    
+    def add_book(self, Books):
+        
+
+    def remove_Booksid(self, bookid):
+        dm.delete("book", f"book_id={bookid}")
+
+    def search_Books(self, bookname):
+        
+        # cur.execute(f'SELECT * FROM book WHERE book_name={bookname}')
+        # print("book")
+
+    #test = input("please enter a book iD to remove a book")
+    #remove_Booksid(test)
+
+    test = input("please enter a book name you want to search")
+    search_Books(test)
