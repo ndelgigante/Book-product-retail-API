@@ -1,3 +1,5 @@
+import DatabaseManager
+from Models import user as User
 def new_user(user):
     #user is a json object with the following keys:
     #email, password, fullname,
