@@ -44,13 +44,19 @@ class products:
     # df = pd.DataFrame(book2)
     #print(df)
 
-    def add_book(self, Books):
+    def add_book(book1):
+       
+
+       dm.insert("book", book1)
+
+       pass
         
 
     def remove_Booksid(self, bookid):
         dm.delete("book", f"book_id={bookid}")
+        self.bookdf = dm.get_df("book")
 
-    def search_Books(self, bookname):
+    def search_Books(self, author):
         
         # cur.execute(f'SELECT * FROM book WHERE book_name={bookname}')
         # print("book")
