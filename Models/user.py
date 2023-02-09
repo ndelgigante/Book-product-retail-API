@@ -7,3 +7,6 @@ class User:
         self.email = email
         self.password = password
         self.userRole = userRole
+
+    def to_list(self):
+        return [self.userid, self.full_name, self.email, self.password, self.userRole ]

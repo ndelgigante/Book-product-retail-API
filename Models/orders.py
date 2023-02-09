@@ -3,3 +3,6 @@ class Order:
         self.orderNumber = orderNumber
         self.orderDate = orderDate
         self.userid = userid
+
+    def to_list(self):
+        return [self.orderNumber, self.orderDate, self.userid]
