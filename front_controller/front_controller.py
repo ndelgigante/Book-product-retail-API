@@ -1,7 +1,7 @@
 # import the flask module.  Make sure it is installed in your env!
 # The Flask (capital F) class will construct our server for us
 from flask import Flask, request, jsonify
-
+from service_layer import orders
 # creating an instance of the Flask class will be our server
 app = Flask(__name__)
 
@@ -41,13 +41,13 @@ def login():
 
 @app.route("/logout")
 def login():
-	# if the user is logged in, this logs them out
+# if the user is logged in, this logs them out
     global logged_in
-	if logged_in: 
-		loggedin = False
-		return "Logged out!"
-	else:
-		return "login first at /login"
+    if logged_in: 
+        loggedin = False
+        return "Logged out!"
+    else:
+        return "login first at /login"
 
 # Flask methods should be organized by URL
 # In this case, both adding employees and getting all employees is defined on /employees
@@ -98,7 +98,21 @@ def handle_update_delete(id):
         # I am using a List Comprehension to filter the employees list, then return all employees that do NOT match!
         employee = [employee for employee in employees if not employee["id"] == id]
         return jsonify(employee)
+    
+@app.route("/orders", methods=["GET", "POST"])
+def handle_order():
+    if not logged_in: return "please login at /login"
+    if request.method == "GET":
+        return orders.get_orders()
+    elif request.method == "POST":
+        return orders.add_order(request.json)
 
+@app.route("/orders/<id>", methods=["GET"])
+def handle_order(id):
+    if not logged_in: return "please login at /login"
+    if request.method == "GET":
+        return orders.get_order_by_id(id)
+    
 
 # When this python file is run directly, the app will start
 if __name__ == "__main__":
