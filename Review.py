@@ -11,13 +11,21 @@ class Review():
 #review: the review object to be added
 def add_review(self, review):
     dm.insert("product_reviews", review.to_list())
-    self.bookdf = dm.get_df("product_reviews")
+    self.reviewdf = dm.get_df("product_reviews")
 
 #param
 #reviewid: the review id of the mysql database to be removed from that database       
-def remove_Booksid(self, reviewid):
+def remove_reviewid(self, reviewid):
     dm.delete("product_reviews", f"review_id={reviewid}")
-    self.bookdf = dm.get_df("product_reviews")
+    self.reviewdf = dm.get_df("product_reviews")
+
+#param
+#reviewid: is the id of the review that is being changed
+
+def edit_review_(self, reviewid, new_rating):
+    cmd = f"SET rating = {new_rating} WHERE review_id = {reviewid}"
+    dm.update("product_reviews", cmd)
+    self.reviewdf = dm.get_df("product_reviews")
 
 #param
 #product id: the id of the product to be searched for
