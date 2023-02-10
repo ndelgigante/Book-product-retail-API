@@ -109,7 +109,7 @@ def handle_order():
         return orders.add_order(request.json)
 
 @app.route("/orders/<id>", methods=["GET"])
-def handle_order(id):
+def handle_orderbyid(id):
     if not logged_in: return "please login at /login"
     if request.method == "GET":
         return orders.get_order_by_id(id)
