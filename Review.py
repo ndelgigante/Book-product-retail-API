@@ -1,6 +1,6 @@
 import pandas as pd
 from DatabaseManager import DatabaseManager 
-from Models.product_reviews import review
+from service_layer.Models.product_reviews import review
 dm = DatabaseManager()
 
 class Review():
