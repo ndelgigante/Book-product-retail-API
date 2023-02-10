@@ -1,7 +1,7 @@
 # import the flask module.  Make sure it is installed in your env!
 # The Flask (capital F) class will construct our server for us
 from flask import Flask, request, jsonify
-from service_layer import orders
+from service_layer import orders, user_login
 # creating an instance of the Flask class will be our server
 app = Flask(__name__)
 
@@ -33,7 +33,7 @@ def login():
     password = request.json["password"]
 	
 	# I have hardcoded the username and password here.  See if you can search user profiles for this step!
-    if username == "Hello" and password == "World":
+    if user_login.login(username, password):
         logged_in = True
         return "You are logged in!"
     else:
