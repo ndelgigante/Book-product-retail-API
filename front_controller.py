@@ -1,8 +1,10 @@
 # import the flask module.  Make sure it is installed in your env!
 # The Flask (capital F) class will construct our server for us
 from flask import Flask, request, jsonify
-from service_layer import orders, user_login
+import orders as orders
+import user_login as user_login
 from products import products
+import findemployees as emp
 # creating an instance of the Flask class will be our server
 app = Flask(__name__)
 
@@ -62,7 +64,8 @@ def handle_create_read():
     # By switching behavior on the HTTP method, multiple request types can be handled.
     if request.method == "GET":
         # The get method wants to READ all employees, so we return a json object of the employees
-        return jsonify(employees)
+        return jsonify(emp.findemployees())
+    
     elif request.method == "POST":
         # A post method contain a request body, and the new employee's information is stored there.
         employees.append(request.json)
@@ -79,9 +82,8 @@ def handle_update_delete(id):
 
     # The GET method at this URL will return one employee if their id matches the value passed in the url 
     if request.method == "GET":
-        # I am using a List Comprehension to filter the employees list, then return that employee
-        employee = [employee for employee in employees if employee["id"] == id]
-        return jsonify(employee)
+        
+        return jsonify(emp.employeesid(request.json['userid']))
     # The PUT method will replace an employee in the list if their id matches what was passed
     elif request.method == "PUT":
         # PUT requests also have a method body, in this case it is the employee to be updated
@@ -121,6 +123,8 @@ def handle_product():
         return products.get_book()
     elif request.method == "POST":
         return products.add_book(request.json)
+    
+
     
 # When this python file is run directly, the app will start
 if __name__ == "__main__":

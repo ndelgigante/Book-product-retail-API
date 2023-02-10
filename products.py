@@ -1,7 +1,7 @@
 import pandas as pd
 from DatabaseManager import DatabaseManager 
 import mysql.connector
-from service_layer.Models.products import Product
+from Models.products import Product
 
 dm = DatabaseManager()
 
