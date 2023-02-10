@@ -7,3 +7,6 @@ class Product:
         self.bookgenre = bookgenre
         self.quantity = quantity
         self.MSRP = MSRP
+
+    def to_list(self):
+        return [self.bookid, self.bookname, self.bookdescription, self.bookauthor, self.bookgenre, self.quantity, self.MSRP]
