@@ -2,7 +2,6 @@ import pandas as pd
 import mysql.connector
 
 class DatabaseManager:
-    
     def __init__(self):
         #requires editing of the password and user to connection to actually access the database
         self.conn = mysql.connector.connect(
@@ -16,9 +15,8 @@ class DatabaseManager:
     #param: 
     #table_name is a string identifier for the sql table
     def get_df(self,table_name):
-        self.cur.execute(f'SELECT * FROM {table_name}')
-        table_rows = self.cur.fetchall()
-        df = pd.DataFrame(table_rows)
+        query = f'SELECT * FROM {table_name}'
+        df = pd.read_sql(query, con= self.conn)
         return df
 
     #param: 
@@ -29,15 +27,14 @@ class DatabaseManager:
         for x in values:
             entry += ', '+ str(x)
         entry = entry[2:]
-        stmt = f'INSERT INTO {table_name} VALUES ({entry})'
-        self.cur.execute(stmt)
+        self.cur.execute(f'INSERT INTO {table_name} VALUES({values});')
         self.conn.commit()
     
     #param:
     #table_name: is a string identifier for the sql table
     #condition: sql string condition for deletions (ie price < 3)
     def delete(self,table_name,condition):
-        self.cur.execute(f'DELETE FROM {table_name} WHERE {condition}')
+        self.cur.execute(f'DELETE FROM {table_name} WHERE {condition};')
         self.conn.commit()
 
 
@@ -45,6 +42,6 @@ class DatabaseManager:
     #table_name is a string identifier for the sql table
     #command: is a sql string with the SET and WHERE clause of the update syntax (ie SET column1 = value1, column2 = value2, ...WHERE <condition>) 
     def update(self,table_name, command):
-        self.cur.execute(f'UPDATE {table_name} {command}')
+        self.cur.execute(f'UPDATE {table_name} {command};')
         self.conn.commit()
     
