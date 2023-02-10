@@ -11,3 +11,5 @@ def login(username, password):
             return True
         else:
             return False
+    else:
+        return False
