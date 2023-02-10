@@ -45,15 +45,18 @@ class products:
 
     # df = pd.DataFrame(book2)
     #print(df)
+    def get_book():
+        df = dm.get_df('porduct')
+        return df
 
     def add_book(self, book1):
-        dm.insert("book", book1)
+        dm.insert("product", book1)
         self.bookdf = dm.get_df("book")
        
         
 
     def remove_Booksid(self, bookid):
-        dm.delete("book", f"book_id={bookid}")
+        dm.delete("product", f"book_id={bookid}")
         self.bookdf = dm.get_df("book")
 
     def search_BooksAuthor(self, author):

@@ -1,7 +1,8 @@
 # import the flask module.  Make sure it is installed in your env!
 # The Flask (capital F) class will construct our server for us
 from flask import Flask, request, jsonify
-from service_layer import orders
+from service_layer import orders, user_login
+from products import products
 # creating an instance of the Flask class will be our server
 app = Flask(__name__)
 
@@ -33,14 +34,14 @@ def login():
     password = request.json["password"]
 	
 	# I have hardcoded the username and password here.  See if you can search user profiles for this step!
-    if username == "Hello" and password == "World":
+    if user_login.login(username, password):
         logged_in = True
         return "You are logged in!"
     else:
         return "Incorrect Username or Password"
 
 @app.route("/logout")
-def login():
+def logout():
 # if the user is logged in, this logs them out
     global logged_in
     if logged_in: 
@@ -113,7 +114,14 @@ def handle_order(id):
     if request.method == "GET":
         return orders.get_order_by_id(id)
     
-
+@app.route("/products", methods=["GET","POST"])
+def handle_product():
+    if not logged_in: return "please login at /login"
+    if request.method == "GET":
+        return products.get_book()
+    elif request.method == "POST":
+        return products.add_book(request.json)
+    
 # When this python file is run directly, the app will start
 if __name__ == "__main__":
     # the port argument changes the port from the default 5000 to a port of your choice
