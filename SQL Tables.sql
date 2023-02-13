@@ -30,3 +30,12 @@ CREATE TABLE products (
   MSRP DECIMAL(10, 2) NOT NULL
 );
 
+INSERT INTO TABLE users (full_name, email, password, userRole) VALUES ("admin", "admin@gmail.com", "password", "admin");
+INSERT INTO TABLE users (full_name, email, password, userRole) VALUES ("employees", "employee@gmail.com", "password", "employee");
+INSERT INTO TABLE users (full_name, email, password, userRole) VALUES ("user", "user@gmail.com", "password", "user");
+
+INSERT into TABLE products (productname, productdescription, quantity, MSRP) VALUES ("test", "test product", 100, 5.22)
+
+INSERT into TABLE product_reviews (product_id, user_id, rating) VALUES (1, 1, 5)
+
+Insert into orders (orderDate, userid) VALUES (NOW(), 1)
